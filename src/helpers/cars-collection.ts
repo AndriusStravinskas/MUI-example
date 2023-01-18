@@ -20,6 +20,10 @@ class CarsCollection {
     return this.props.cars.map(this.joinCar);
   }
 
+  public get Model(): Model[] {
+    return JSON.parse(JSON.stringify(this.props.models));
+  }
+
   private joinCar = ({ modelId, ...car }: Car) => {
     const { brands, models } = this.props;
     const [carModel] = models.filter((model) => model.id === modelId);

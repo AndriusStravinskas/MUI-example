@@ -4,7 +4,13 @@ import brands from '../data/brands';
 import models from '../data/models';
 import Table from './table';
 import stringifyProps from '../helpers/stringify-props';
+import SelectField, { Option } from './select-field';
+import Model from '../types/model';
 
+const ModelsToOption = ({ id, title }: Model): Option => ({
+  value: id,
+  text: title,
+});
 class App {
   private htmlElement: HTMLElement;
 
@@ -24,22 +30,29 @@ class App {
   }
 
   initialize = (): void => {
-      const carTable = new Table({
-        title: 'Visi automobiliai',
-        columns: {
-          id: 'ID',
-          brand: 'Markė',
-          model: 'Modelis',
-          price: 'Kaina',
-          year: 'Metai',
-        },
-        rowsData: this.carsCollection.all.map(stringifyProps),
-      });
-      const container = document.createElement('div');
-      container.className = 'container my-5';
-      container.appendChild(carTable.htmlElement);
+    const selectField = new SelectField({
+      options: this.carsCollection.Model.map(ModelsToOption),
+    });
 
-      this.htmlElement.append(container);
+    const carTable = new Table({
+      title: 'Visi automobiliai',
+      columns: {
+        id: 'ID',
+        brand: 'Markė',
+        model: 'Modelis',
+        price: 'Kaina',
+        year: 'Metai',
+      },
+      rowsData: this.carsCollection.all.map(stringifyProps),
+    });
+    const container = document.createElement('div');
+    container.className = 'container my-5 d-flex flex-column gap-3';
+    container.append(
+      selectField.htmlElement,
+      carTable.htmlElement,
+      );
+
+    this.htmlElement.append(container);
   };
 }
 

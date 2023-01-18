@@ -56,7 +56,7 @@ class Table<T extends TableRowData> {
     this.thead.className = 'bg-dark text-white';
     this.thead.innerHTML = `
     <tr>
-    <th colspan="${columnsNames.length}">${this.props.title}</th>
+    <th colspan="${columnsNames.length}" class="text-center">${this.props.title}</th>
     </tr>
     <tr>${columnsHtmlStr}</tr>`;
   };
