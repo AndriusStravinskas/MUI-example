@@ -32,6 +32,9 @@ class App {
   initialize = (): void => {
     const selectField = new SelectField({
       options: this.carsCollection.Model.map(ModelsToOption),
+      onChange: (_, modelId) => {
+        console.log(`Pasikeitė kategorija su ID: ${modelId}`);
+      },
     });
 
     const carTable = new Table({
