@@ -29,6 +29,7 @@ class Table<T extends TableRowData> {
     this.thead = document.createElement('thead');
 
     this.initialize();
+    this.renderView();
   }
 
   private checkColumnsCompatability = (): void => {
@@ -48,12 +49,21 @@ class Table<T extends TableRowData> {
     }
   };
 
-  private initializeHead = (): void => {
+  // Initialize metode atliekami veiksmai nepriklausantys nuo PROPS.
+  private initialize = (): void => {
+    this.thead.className = 'bg-dark text-white';
+    this.htmlElement.className = 'table table-striped';
+    this.htmlElement.append(
+      this.thead,
+      this.tbody,
+    );
+  };
+
+  private renderHeadView = () => {
     const columnsNames = Object.values(this.props.columns);
     const columnsHtmlStr = columnsNames
     .map((name) => `<th>${name}</th>`)
     .join('');
-    this.thead.className = 'bg-dark text-white';
     this.thead.innerHTML = `
     <tr>
     <th colspan="${columnsNames.length}" class="text-center">${this.props.title}</th>
@@ -61,35 +71,31 @@ class Table<T extends TableRowData> {
     <tr>${columnsHtmlStr}</tr>`;
   };
 
-  private initializeBody = (): void => {
-   const { rowsData, columns } = this.props;
+  private renderBodyView = () => {
+    this.tbody.innerHTML = '';
+    const keys = Object.keys(this.props.columns);
 
-   this.tbody.innerHTML = '';
-   const rowsHtmlElements = rowsData
-   .map((rowData) => {
-    const rowHtmlElement = document.createElement('tr');
-
-    const cellsHtmlString = Object.keys(columns)
+    this.props.rowsData.forEach((rowData) => {
+    const columnHtmlStr = keys
     .map((key) => `<td>${rowData[key]}</td>`)
     .join('');
 
-    rowHtmlElement.innerHTML = cellsHtmlString;
-
-    return rowHtmlElement;
+    this.tbody.innerHTML += `<tr>${columnHtmlStr}</tr>`;
    });
+  };
 
-   this.tbody.append(...rowsHtmlElements);
+  // RenderView metode atliekami veiksmai priklausantys nuo PROPS.
+  private renderView = () => {
+    this.renderHeadView();
+    this.renderBodyView();
+  };
+
+  public updateProps = (newProps: Partial<TableProps<T>>) => {
+    this.props = {
+      ...this.props,
+      ...newProps,
     };
-
-  public initialize = (): void => {
-    this.initializeHead();
-    this.initializeBody();
-
-    this.htmlElement.className = 'table table-striped';
-    this.htmlElement.append(
-      this.thead,
-      this.tbody,
-    );
+    this.renderView();
   };
 }
 

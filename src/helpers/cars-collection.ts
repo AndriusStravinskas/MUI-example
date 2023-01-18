@@ -10,30 +10,53 @@ type CarsCollectionProps = {
 };
 
 class CarsCollection {
-  private props: CarsCollectionProps;
+  // private props: CarsCollectionProps;
 
-  constructor(props: CarsCollectionProps) {
-    this.props = props;
+  private privateCars: Car[];
+
+  private privateBrands: Brand[];
+
+  private privateModels: Model[];
+
+  constructor({
+    cars,
+    brands,
+    models,
+  }: CarsCollectionProps) {
+    this.privateCars = JSON.parse(JSON.stringify(cars));
+    this.privateBrands = JSON.parse(JSON.stringify(brands));
+    this.privateModels = JSON.parse(JSON.stringify(models));
   }
 
-  public get all(): CarJoined[] {
-    return this.props.cars.map(this.joinCar);
+  public get allCars(): CarJoined[] {
+    return this.privateCars.map(this.joinCar);
   }
 
-  public get Model(): Model[] {
-    return JSON.parse(JSON.stringify(this.props.models));
+  public get Brand(): Model[] {
+    return JSON.parse(JSON.stringify(this.privateBrands));
   }
 
   private joinCar = ({ modelId, ...car }: Car) => {
-    const { brands, models } = this.props;
-    const [carModel] = models.filter((model) => model.id === modelId);
-    const [carBrand] = brands.filter((brand) => carModel.brandId === brand.id);
+    const carModel = this.privateModels.find((model) => model.id === modelId);
+    const carBrand = this.privateBrands.find((brand) => brand.id === carModel?.brandId);
 
     return {
       ...car,
-      brand: carBrand.title,
-      model: carModel.title,
+      brand: (carBrand && carBrand.title) ?? 'unknown',
+      model: (carModel && carModel.title) ?? 'unknown',
     };
+  };
+
+  public getByBrandId = (brandId: string): CarJoined[] => {
+    const brandModelsIds = this.privateModels
+    .filter((model) => model.brandId === brandId)
+    .map((brand) => brand.id);
+
+    const joindCars = this.privateCars
+    .filter((car) => brandModelsIds.includes(car.modelId))
+    .map(this.joinCar);
+
+    return joindCars;
   };
 }
 
