@@ -16,19 +16,19 @@ class CarsCollection {
     this.props = props;
   }
 
-  public get all():CarJoined[] {
+  public get all(): CarJoined[] {
     return this.props.cars.map(this.joinCar);
   }
 
   private joinCar = ({ modelId, ...car }: Car) => {
     const { brands, models } = this.props;
-    const carModel = models.find((model) => model.id === modelId);
-    const carBrand = brands.find((brand) => brand.id === carModel?.brandId);
+    const [carModel] = models.filter((model) => model.id === modelId);
+    const [carBrand] = brands.filter((brand) => carModel.brandId === brand.id);
 
     return {
       ...car,
-      brand: (carBrand && carBrand.title) ?? 'unknown',
-      model: (carModel && carModel.title) ?? 'unknown',
+      brand: carBrand.title,
+      model: carModel.title,
     };
   };
 }
