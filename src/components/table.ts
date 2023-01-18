@@ -1,14 +1,15 @@
 import getPropCount from '../helpers/get-prop-count';
 
-type TableRowData = {
+export type TableRowData = {
   id: string,
   [key: string]: string,
 };
 
 type TableProps<Type extends TableRowData> = {
   title: string,
-columns: Type,
-rowsData: Type[],
+  columns: Type,
+  rowsData: Type[],
+  onDelete: (id: string) => void,
 };
 
 class Table<T extends TableRowData> {
@@ -61,12 +62,12 @@ class Table<T extends TableRowData> {
 
   private renderHeadView = () => {
     const columnsNames = Object.values(this.props.columns);
-    const columnsHtmlStr = columnsNames
+    const columnsHtmlStr = `${columnsNames
     .map((name) => `<th>${name}</th>`)
-    .join('');
+    .join('')}<th></th>`;
     this.thead.innerHTML = `
     <tr>
-    <th colspan="${columnsNames.length}" class="text-center">${this.props.title}</th>
+    <th colspan="${columnsNames.length + 1}" class="text-center">${this.props.title}</th>
     </tr>
     <tr>${columnsHtmlStr}</tr>`;
   };
@@ -76,11 +77,22 @@ class Table<T extends TableRowData> {
     const keys = Object.keys(this.props.columns);
 
     this.props.rowsData.forEach((rowData) => {
-    const columnHtmlStr = keys
+    const tr = document.createElement('tr');
+    tr.innerHTML = keys
     .map((key) => `<td>${rowData[key]}</td>`)
     .join('');
 
-    this.tbody.innerHTML += `<tr>${columnHtmlStr}</tr>`;
+    const delBtn = document.createElement('button');
+    delBtn.className = 'btn btn-danger btn-sm';
+    delBtn.innerHTML = '✕';
+    delBtn.addEventListener('click', () => {
+      this.props.onDelete(rowData.id);
+    });
+
+    const lastTd = document.createElement('td');
+    lastTd.append(delBtn);
+    tr.append(lastTd);
+    this.tbody.append(tr);
    });
   };
 
