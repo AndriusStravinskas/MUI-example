@@ -21,7 +21,6 @@ class App {
       brands,
       models,
     });
-    console.log(this.carsCollection);
   }
 
   initialize = (): void => {

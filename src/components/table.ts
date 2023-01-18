@@ -12,13 +12,6 @@ rowsData: Type[],
 };
 
 class Table<T extends TableRowData> {
-  public static checkColumnsCompatability<T extends TableRowData>(
-    columns: T,
-    rowsData: T[],
-  ): boolean {
-    return rowsData.some((rowData) => getPropCount(rowData) === getPropCount(columns));
-  }
-
   public htmlElement: HTMLTableElement;
 
   private props: TableProps<T>;
@@ -28,18 +21,34 @@ class Table<T extends TableRowData> {
   private thead: HTMLTableSectionElement;
 
   constructor(props: TableProps<T>) {
-    if (Table.checkColumnsCompatability(props.columns, props.rowsData)) {
-      throw new Error('nesutampa stulpelių skaičius su eilučių duomenimis');
-    }
-
     this.props = props;
+    this.checkColumnsCompatability();
+
     this.htmlElement = document.createElement('table');
     this.tbody = document.createElement('tbody');
     this.thead = document.createElement('thead');
+
     this.initialize();
   }
 
-  public initializeHead = () => {
+  private checkColumnsCompatability = (): void => {
+    const { rowsData, columns } = this.props;
+
+    if (this.props.rowsData.length === 0) return;
+    const columnCount = getPropCount(columns);
+
+    const columnCompatableWithRowsData = rowsData.every((row) => {
+      const rowCellsCount = getPropCount(row);
+
+      return rowCellsCount === columnCount;
+    });
+
+    if (!columnCompatableWithRowsData) {
+      throw new Error('nesutampa lentelės stulpelių skaičius su eilučių stulpelių skaičiumi');
+    }
+  };
+
+  private initializeHead = (): void => {
     const columnsNames = Object.values(this.props.columns);
     const columnsHtmlStr = columnsNames
     .map((name) => `<th>${name}</th>`)
@@ -52,18 +61,27 @@ class Table<T extends TableRowData> {
     <tr>${columnsHtmlStr}</tr>`;
   };
 
-  public initializeBody = () => {
-    const keys = Object.keys(this.props.columns);
-    this.props.rowsData.forEach((rowData) => {
-      const columnsHtmlStr = keys
-      .map((key) => `<th>${rowData[key]}</th>`)
-      .join('');
+  private initializeBody = (): void => {
+   const { rowsData, columns } = this.props;
 
-      this.tbody.innerHTML += `<tr>${columnsHtmlStr}</tr>`;
-    });
-  };
+   this.tbody.innerHTML = '';
+   const rowsHtmlElements = rowsData
+   .map((rowData) => {
+    const rowHtmlElement = document.createElement('tr');
 
-  public initialize = () => {
+    const cellsHtmlString = Object.keys(columns)
+    .map((key) => `<td>${rowData[key]}</td>`)
+    .join('');
+
+    rowHtmlElement.innerHTML = cellsHtmlString;
+
+    return rowHtmlElement;
+   });
+
+   this.tbody.append(...rowsHtmlElements);
+    };
+
+  public initialize = (): void => {
     this.initializeHead();
     this.initializeBody();
 
