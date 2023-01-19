@@ -1,70 +1,47 @@
 type TextFieldProps = {
-  labelText: string;
-  name: string;
-  value?: string;
+  labelText: string,
+  name: string,
+  initialValue?: string;
 };
 
 class TextField {
-  private static instanceCounter = 0;
+  private static count = 0;
 
-  private static get id() {
-    return `${this.name}_${this.instanceCounter}`;
-  }
+  private id: string;
 
   private props: TextFieldProps;
 
-  private htmlInputElement: HTMLInputElement;
-
-  private htmlLabelElement: HTMLLabelElement;
-
   public htmlElement: HTMLDivElement;
 
-  public constructor(props: TextFieldProps) {
-    TextField.instanceCounter += 1;
+  constructor(props: TextFieldProps) {
+    TextField.count += 1;
+    this.id = `${TextField.name}_${TextField.count}`;
     this.props = props;
-
     this.htmlElement = document.createElement('div');
-    this.htmlLabelElement = document.createElement('label');
-    this.htmlInputElement = document.createElement('input');
 
-    this.initialize();
     this.renderView();
   }
 
-  private initialize = (): void => {
-    const inputId = `input-${TextField.id}`;
-
-    this.htmlLabelElement.setAttribute('for', inputId);
-    this.htmlLabelElement.className = 'form-label';
-
-    this.htmlInputElement.id = inputId;
-    this.htmlInputElement.className = 'form-control';
-    this.htmlInputElement.type = 'text';
-
-    this.htmlElement.append(
-      this.htmlLabelElement,
-      this.htmlInputElement,
-    );
+  public renderView = () => {
+    this.htmlElement.innerHTML = `
+        <label for="${this.id}" class="form-label">${this.props.labelText}</label>
+        <input 
+          id="${this.id}"
+          class="form-control" 
+          type="text" 
+          name="${this.props.name}"
+          value="${this.props.initialValue ?? ''}"
+        >`;
   };
 
-  private renderView = (): void => {
-    const { name, labelText, value } = this.props;
-
-    this.htmlLabelElement.innerHTML = labelText;
-    this.htmlInputElement.name = name;
-    if (value) {
-      this.htmlInputElement.value = value;
-    }
-  };
-
-  public updateProps(newProps: Partial<TextFieldProps>) {
+  public updateProps = (newProps: Partial<TextFieldProps>) => {
     this.props = {
       ...this.props,
       ...newProps,
     };
 
     this.renderView();
-  }
+  };
 }
 
 export default TextField;
