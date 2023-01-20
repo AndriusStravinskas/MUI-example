@@ -1,14 +1,16 @@
+import brands from '../data/brands';
 import FormSelectField from './form-select-field';
 import TextField from './text-field';
+import models from '../data/models';
 
-type FormValues = {
+export type FormValues = {
   brand: string;
   model: string;
   price: string;
   year: string;
 };
 
-type CarFormProps = {
+export type CarFormProps = {
   title: string;
   values: FormValues;
   submitBtnText: string;
@@ -38,27 +40,14 @@ class CarForm {
     this.brandSelectField = new FormSelectField({
       labelText: 'Markė',
       name: 'brand',
-      options: [
-        { label: 'Opel', value: '1' },
-        { label: 'BMW', value: '2' },
-        { label: 'Subaru', value: '3' },
-      ],
+      options: brands.map(({ id, title }) => ({ label: title, value: id })),
       initialValue: props.values.brand,
     });
 
     this.modelSelectField = new FormSelectField({
       labelText: 'Modelis',
       name: 'model',
-      options: [
-        { label: 'Zafira', value: '1' },
-        { label: 'Insignia', value: '2' },
-        { label: 'X1', value: '3' },
-        { label: 'X2', value: '4' },
-        { label: 'X3', value: '5' },
-        { label: 'Impreza', value: '6' },
-        { label: 'Forester', value: '7' },
-        { label: 'Ascent', value: '8' },
-      ],
+      options: models.map(({ id, title }) => ({ label: title, value: id })),
       initialValue: props.values.model,
     });
 
@@ -101,9 +90,10 @@ class CarForm {
     };
 
     this.props.onSubmit(formValues);
+    this.htmlElement.reset();
   };
 
-  public initialize() {
+  private initialize() {
     this.formTitleHtmlElement.className = 'h3 text-center';
 
     this.submitBtn.className = 'btn btn-primary';

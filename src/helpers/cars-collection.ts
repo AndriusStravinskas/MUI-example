@@ -9,6 +9,10 @@ type CarsCollectionProps = {
   models: Model[],
 };
 
+const createId = (): string => String(Math.floor(Math.random() * 100000000000000));
+
+export type CreateCarProps = Omit<Car, 'id'> & { brandIds: string };
+
 class CarsCollection {
   // private props: CarsCollectionProps;
 
@@ -72,6 +76,22 @@ class CarsCollection {
 
     return brand;
   };
+
+  public add = ({ brandIds, modelId, ...carProps }: CreateCarProps) => {
+    const model = this.privateModels.find((m) => m.id === modelId);
+    const brand = this.privateBrands.find((b) => b.id === brandIds);
+
+    if (model === undefined) throw new Error('Netinkami model duomenys sukurti automobilį');
+    if (brand === undefined) throw new Error('Netinkami brand duomenys sukurti automobilį');
+
+    const newCar: Car = {
+      id: createId(),
+      ...carProps,
+      modelId,
+    };
+
+    this.privateCars.push(newCar);
+  };
 }
 
-export default CarsCollection;
+  export default CarsCollection;
