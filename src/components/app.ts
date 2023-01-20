@@ -28,7 +28,9 @@ class App {
   constructor(selector: string) {
     const foundElement = document.querySelector<HTMLElement>(selector);
 
-    if (foundElement === null) throw new Error(`Nerastas elementas su selektoriumi '${selector}'`);
+    if (foundElement === null) {
+      throw new Error(`Nerastas elementas su selektoriumi '${selector}'`);
+    }
 
     this.htmlElement = foundElement;
     this.selectedBrandId = ALL_BRANDS_ID;
@@ -77,28 +79,32 @@ class App {
       onChange: this.handleBrandChange,
     });
 
-    const carForm = new CarForm();
+    const carForm = new CarForm({
+      title: 'Sukurti Mašiną',
+      submitBtnText: 'Sukurti',
+      values: {
+        brand: '',
+        model: '',
+        price: '',
+        year: '',
+      },
+      onSubmit: (formValues) => console.log(formValues),
+    });
 
-    uxContainer.append(
-      this.carsTable.htmlElement,
-      carForm.htmlElement,
-    );
+    uxContainer.append(this.carsTable.htmlElement, carForm.htmlElement);
 
-    container.append(
-      selectField.htmlElement,
-      uxContainer,
-      );
+    container.append(selectField.htmlElement, uxContainer);
     this.htmlElement.append(container);
   };
 
   public update = () => {
     const selectedCars = this.selectedBrandId === ALL_BRANDS_ID
-    ? this.carsCollection.allCars
-    : this.carsCollection.getByBrandId(this.selectedBrandId);
+        ? this.carsCollection.allCars
+        : this.carsCollection.getByBrandId(this.selectedBrandId);
 
     const brandTitle = this.selectedBrandId === ALL_BRANDS_ID
-    ? ALL_BRANDS_TITLE
-    : this.carsCollection.getCarById(this.selectedBrandId).title;
+        ? ALL_BRANDS_TITLE
+        : this.carsCollection.getCarById(this.selectedBrandId).title;
 
     this.carsTable.updateProps({
       rowsData: selectedCars.map(stringifyProps),
