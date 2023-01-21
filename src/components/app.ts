@@ -15,7 +15,7 @@ const BrandsToOption = ({ id, title }: Brand): Option => ({
 });
 
 const ALL_BRANDS_ID = '-1';
-const ALL_BRANDS_TITLE = 'Visos automobiliai';
+const ALL_BRANDS_TITLE = 'Visi automobiliai';
 
 class App {
   private htmlElement: HTMLElement;
