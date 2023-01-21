@@ -16,6 +16,7 @@ const BrandsToOption = ({ id, title }: Brand): Option => ({
 
 const ALL_BRANDS_ID = '-1';
 const ALL_BRANDS_TITLE = 'Visos automobiliai';
+
 class App {
   private htmlElement: HTMLElement;
 
@@ -66,17 +67,29 @@ class App {
         price: '',
         year: '',
       },
+      isEdited: Boolean(this.editedCarId),
       onSubmit: this.handleCarCreate,
     });
   }
 
   private handleCarDelete = (carId: string): void => {
     this.carsCollection.deleteCarById(carId);
+    this.editedCarId = null;
+
     this.update();
   };
 
   private handleBrandChange: SelectFieldProps['onChange'] = (_, brandId) => {
     this.selectedBrandId = brandId;
+    this.editedCarId = null;
+
+    this.update();
+  };
+
+  private handleCarEdit: TableProps<TableRowData>['onEdit'] = (carId) => {
+    const carIsAlreadyEdited = this.editedCarId === carId;
+    this.editedCarId = carIsAlreadyEdited ? null : carId;
+
     this.update();
   };
 
@@ -94,13 +107,26 @@ class App {
     };
 
     this.carsCollection.add(carProps);
+
+    this.editedCarId = null;
+
     this.update();
   };
 
-  private handleCarEdit: TableProps<TableRowData>['onEdit'] = (carId) => {
-    const CarIsAlreadyEdited = this.editedCarId === carId;
-    this.editedCarId = CarIsAlreadyEdited ? null : carId;
-    this.update();
+  private handleCarUpdate = ({ brand, model, price, year }: FormValues): void => {
+    if (this.editedCarId) {
+      const carProps: CreateCarProps = {
+        brandIds: brand,
+        modelId: model,
+        price: Number(price),
+        year: Number(year),
+      };
+
+      this.carsCollection.update(this.editedCarId, carProps);
+      this.editedCarId = null;
+
+      this.update();
+    }
   };
 
   public initialize = (): void => {
@@ -128,12 +154,12 @@ class App {
   };
 
   public update = () => {
-    const doSelectAllCars = this.selectedBrandId === ALL_BRANDS_ID;
-    const carIsBeingEdited = this.editedCarId !== null;
+    const { editedCarId } = this;
 
+    const doSelectAllCars = this.selectedBrandId === ALL_BRANDS_ID;
     const selectedCars = doSelectAllCars
-        ? this.carsCollection.allCars
-        : this.carsCollection.getByBrandId(this.selectedBrandId);
+    ? this.carsCollection.allCars
+    : this.carsCollection.getByBrandId(this.selectedBrandId);
 
     const brandTitle = doSelectAllCars
         ? ALL_BRANDS_TITLE
@@ -145,10 +171,46 @@ class App {
       editedCarId: this.editedCarId,
     });
 
-    this.carForm.updateProps({
-      title: carIsBeingEdited ? 'Atnaujinti automobilį' : 'Sukurti automobilį',
-      submitBtnText: carIsBeingEdited ? 'Atnaujinti' : 'Sukurti',
-    });
+    if (editedCarId) {
+      const editedCar = cars.find((car) => car.id === editedCarId);
+      if (!editedCar) {
+        throw new Error('Automobilis nerastas');
+      }
+
+      const model = models.find((m) => m.id === editedCar.modelId);
+      if (!model) {
+        throw new Error('Automobilio modelis nerastas');
+      }
+
+      // ------------   Atnaujinimo atvejis - conrete state
+      this.carForm.updateProps({
+        title: 'Atnaujinti automobilį',
+        submitBtnText: 'Atnaujinti',
+        values: {
+          brand: model.brandId,
+          model: model.id,
+          price: String(editedCar.price),
+          year: String(editedCar.year),
+        },
+        isEdited: true,
+        onSubmit: this.handleCarUpdate,
+      });
+    } else {
+      const initialBrandId = brands[0].id;
+      // ------------   kūrimo atvejis - conrete state
+      this.carForm.updateProps({
+        title: 'Sukurti automobilį',
+        submitBtnText: 'Sukurti',
+        values: {
+          brand: initialBrandId,
+          model: models.filter((m) => m.brandId === initialBrandId)[0].id,
+          price: '',
+          year: '',
+        },
+        isEdited: false,
+        onSubmit: this.handleCarCreate,
+      });
+    }
   };
 }
 

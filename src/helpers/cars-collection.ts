@@ -92,6 +92,31 @@ class CarsCollection {
 
     this.privateCars.push(newCar);
   };
+
+  public update = (carId: string, { brandIds, modelId, ...carProps }: CreateCarProps) => {
+    const updatedCarIndex = this.privateCars.findIndex((car) => car.id === carId);
+    if (updatedCarIndex === -1) {
+      throw new Error(`Automobilis su id: "${carId}" buvo nerastas`);
+    }
+
+    const model = this.privateModels.find((models) => models.id === modelId);
+    if (!model) {
+      throw new Error(`Automobilis su id: "${modelId}" buvo nerastas`);
+    }
+
+    const brand = this.privateBrands.find((brands) => brands.id === brandIds);
+    if (!brand) {
+      throw new Error(`Automobilis su id: "${modelId}" buvo nerastas`);
+    }
+
+    const updateCar: Car = {
+      ...this.privateCars[updatedCarIndex],
+      ...carProps,
+      modelId,
+    };
+
+    this.privateCars.splice(updatedCarIndex, 1, updateCar);
+  };
 }
 
   export default CarsCollection;
