@@ -2,7 +2,7 @@ import CarsCollection, { CreateCarProps } from '../helpers/cars-collection';
 import cars from '../data/cars';
 import brands from '../data/brands';
 import models from '../data/models';
-import Table from './table';
+import Table, { TableProps, TableRowData } from './table';
 import stringifyProps, { StringifiedObject } from '../helpers/stringify-props';
 import SelectField, { Option, SelectFieldProps } from './select-field';
 import type Brand from '../types/brand';
@@ -15,15 +15,16 @@ const BrandsToOption = ({ id, title }: Brand): Option => ({
 });
 
 const ALL_BRANDS_ID = '-1';
-const ALL_BRANDS_TITLE = 'All cars';
+const ALL_BRANDS_TITLE = 'Visos automobiliai';
 class App {
   private htmlElement: HTMLElement;
 
-  private carsCollection!: CarsCollection;
-
-  private carsTable: Table<StringifiedObject<CarJoined>>;
-
   private selectedBrandId: string;
+  private editedCarId: string | null;
+
+  private carsCollection!: CarsCollection;
+  private carsTable: Table<StringifiedObject<CarJoined>>;
+  private carForm: CarForm;
 
   constructor(selector: string) {
     const foundElement = document.querySelector<HTMLElement>(selector);
@@ -34,6 +35,7 @@ class App {
 
     this.htmlElement = foundElement;
     this.selectedBrandId = ALL_BRANDS_ID;
+    this.editedCarId = null;
     this.carsCollection = new CarsCollection({
       cars,
       brands,
@@ -50,7 +52,21 @@ class App {
         year: 'Metai',
       },
       rowsData: this.carsCollection.allCars.map(stringifyProps),
+      editedCarId: this.editedCarId,
       onDelete: this.handleCarDelete,
+      onEdit: this.handleCarEdit,
+    });
+
+    this.carForm = new CarForm({
+      title: 'Sukurti automobilį',
+      submitBtnText: 'Sukurti',
+      values: {
+        brand: '',
+        model: '',
+        price: '',
+        year: '',
+      },
+      onSubmit: this.handleCarCreate,
     });
   }
 
@@ -64,7 +80,7 @@ class App {
     this.update();
   };
 
-  private handleBrandCreate = ({
+  private handleCarCreate = ({
     brand,
     model,
     price,
@@ -78,6 +94,12 @@ class App {
     };
 
     this.carsCollection.add(carProps);
+    this.update();
+  };
+
+  private handleCarEdit: TableProps<TableRowData>['onEdit'] = (carId) => {
+    const CarIsAlreadyEdited = this.editedCarId === carId;
+    this.editedCarId = CarIsAlreadyEdited ? null : carId;
     this.update();
   };
 
@@ -96,36 +118,36 @@ class App {
       onChange: this.handleBrandChange,
     });
 
-    const carForm = new CarForm({
-      title: 'Sukurti Mašiną',
-      submitBtnText: 'Sukurti',
-      values: {
-        brand: '',
-        model: '',
-        price: '',
-        year: '',
-      },
-      onSubmit: this.handleBrandCreate,
-    });
-
-    uxContainer.append(this.carsTable.htmlElement, carForm.htmlElement);
+    uxContainer.append(
+      this.carsTable.htmlElement,
+      this.carForm.htmlElement,
+      );
 
     container.append(selectField.htmlElement, uxContainer);
     this.htmlElement.append(container);
   };
 
   public update = () => {
-    const selectedCars = this.selectedBrandId === ALL_BRANDS_ID
+    const doSelectAllCars = this.selectedBrandId === ALL_BRANDS_ID;
+    const carIsBeingEdited = this.editedCarId !== null;
+
+    const selectedCars = doSelectAllCars
         ? this.carsCollection.allCars
         : this.carsCollection.getByBrandId(this.selectedBrandId);
 
-    const brandTitle = this.selectedBrandId === ALL_BRANDS_ID
+    const brandTitle = doSelectAllCars
         ? ALL_BRANDS_TITLE
         : this.carsCollection.getCarById(this.selectedBrandId).title;
 
     this.carsTable.updateProps({
-      rowsData: selectedCars.map(stringifyProps),
       title: brandTitle,
+      rowsData: selectedCars.map(stringifyProps),
+      editedCarId: this.editedCarId,
+    });
+
+    this.carForm.updateProps({
+      title: carIsBeingEdited ? 'Atnaujinti automobilį' : 'Sukurti automobilį',
+      submitBtnText: carIsBeingEdited ? 'Atnaujinti' : 'Sukurti',
     });
   };
 }

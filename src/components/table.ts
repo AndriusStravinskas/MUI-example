@@ -1,15 +1,17 @@
 import getPropCount from '../helpers/get-prop-count';
 
 export type TableRowData = {
-  id: string,
-  [key: string]: string,
+  id: string;
+  [key: string]: string;
 };
 
-type TableProps<Type extends TableRowData> = {
-  title: string,
-  columns: Type,
-  rowsData: Type[],
-  onDelete: (id: string) => void,
+export type TableProps<Type extends TableRowData> = {
+  title: string;
+  columns: Type;
+  rowsData: Type[];
+  editedCarId: string | null;
+  onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
 };
 
 class Table<T extends TableRowData> {
@@ -46,7 +48,9 @@ class Table<T extends TableRowData> {
     });
 
     if (!columnCompatableWithRowsData) {
-      throw new Error('nesutampa lentelės stulpelių skaičius su eilučių stulpelių skaičiumi');
+      throw new Error(
+        'nesutampa lentelės stulpelių skaičius su eilučių stulpelių skaičiumi',
+      );
     }
   };
 
@@ -54,20 +58,19 @@ class Table<T extends TableRowData> {
   private initialize = (): void => {
     this.thead.className = 'bg-dark text-white';
     this.htmlElement.className = 'table table-striped';
-    this.htmlElement.append(
-      this.thead,
-      this.tbody,
-    );
+    this.htmlElement.append(this.thead, this.tbody);
   };
 
   private renderHeadView = () => {
     const columnsNames = Object.values(this.props.columns);
     const columnsHtmlStr = `${columnsNames
-    .map((name) => `<th>${name}</th>`)
-    .join('')}<th></th>`;
+      .map((name) => `<th>${name}</th>`)
+      .join('')}<th></th>`;
     this.thead.innerHTML = `
     <tr>
-    <th colspan="${columnsNames.length + 1}" class="text-center">${this.props.title}</th>
+    <th colspan="${columnsNames.length + 1}" class="text-center">${
+      this.props.title
+    }</th>
     </tr>
     <tr>${columnsHtmlStr}</tr>`;
   };
@@ -77,23 +80,39 @@ class Table<T extends TableRowData> {
     const keys = Object.keys(this.props.columns);
 
     this.props.rowsData.forEach((rowData) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = keys
-    .map((key) => `<td>${rowData[key]}</td>`)
-    .join('');
+      const tr = document.createElement('tr');
+      tr.innerHTML = keys.map((key) => `<td>${rowData[key]}</td>`).join('');
 
-    const delBtn = document.createElement('button');
-    delBtn.className = 'btn btn-danger btn-sm';
-    delBtn.innerHTML = '✕';
-    delBtn.addEventListener('click', () => {
-      this.props.onDelete(rowData.id);
+      const rowIsBeingEdited = this.props.editedCarId === rowData.id;
+
+      if (rowIsBeingEdited) {
+        tr.style.backgroundColor = '#ffe493';
+      }
+      const updateBtn = document.createElement('button');
+      updateBtn.innerHTML = rowIsBeingEdited ? '🛇' : '⟳';
+      updateBtn.className = `btn btn-table-action btn-${rowIsBeingEdited ? 'secondary' : 'warning'} btn-sm`;
+      updateBtn.addEventListener('click', () => {
+        tr.style.backgroundColor = 'yellow';
+        this.props.onEdit(rowData.id);
+      });
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.innerHTML = '✕';
+      deleteBtn.className = 'btn btn-table-action btn-danger btn-sm';
+      deleteBtn.addEventListener('click', () => {
+        this.props.onDelete(rowData.id);
+      });
+
+      const btnContainer = document.createElement('div');
+      btnContainer.className = 'd-flex gap-2';
+
+      btnContainer.append(updateBtn, deleteBtn);
+
+      const lastTd = document.createElement('td');
+      lastTd.append(btnContainer);
+      tr.append(lastTd);
+      this.tbody.append(tr);
     });
-
-    const lastTd = document.createElement('td');
-    lastTd.append(delBtn);
-    tr.append(lastTd);
-    this.tbody.append(tr);
-   });
   };
 
   // RenderView metode atliekami veiksmai priklausantys nuo PROPS.
