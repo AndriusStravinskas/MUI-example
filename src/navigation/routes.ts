@@ -14,6 +14,12 @@ const routes = {
   AccordionPage: '/accordion',
   ImageListPage: '/imageList',
   NavbarPage: '/navbar',
+  LinkPage: '/link',
+  BreadcrumbsPage: '/breadcrumbs',
+  DrawerPage: '/drawer',
+  SpeedDialPage: '/speedDial',
+  BottomNavigationPage: '/bottomNavigation',
+  AvatarPage: '/avatar',
 };
 
 export default routes;

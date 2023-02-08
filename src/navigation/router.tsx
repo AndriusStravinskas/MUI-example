@@ -13,10 +13,16 @@ import CardPage from 'pages/card-page';
 import AccordionPage from 'pages/accordion-page';
 import ImageListPage from 'pages/image-list-page';
 import NavbarPage from 'pages/navbar-page';
+import LinkPage from 'pages/Link-page';
+import BreadcrumbsPage from 'pages/breadcrumbs-page';
+import DrawerPage from 'pages/drawer-page';
+import SpeedDialPage from 'pages/speed-dial-page';
+import AvatarPage from 'pages/avatar-page';
 import RadioButtonPage from '../pages/radio-button-page';
 import routes from './routes';
 import ButtonPage from '../pages/button-page';
 import SelectPage from '../pages/select-page';
+import BottomNavigationPage from '../pages/bottom-navigation';
 
 const router = createBrowserRouter([
   {
@@ -82,6 +88,30 @@ const router = createBrowserRouter([
       {
         path: routes.NavbarPage,
         element: <NavbarPage />,
+      },
+      {
+        path: routes.LinkPage,
+        element: <LinkPage />,
+      },
+      {
+        path: routes.BreadcrumbsPage,
+        element: <BreadcrumbsPage />,
+      },
+      {
+        path: routes.DrawerPage,
+        element: <DrawerPage />,
+      },
+      {
+        path: routes.SpeedDialPage,
+        element: <SpeedDialPage />,
+      },
+      {
+        path: routes.BottomNavigationPage,
+        element: <BottomNavigationPage />,
+      },
+      {
+        path: routes.AvatarPage,
+        element: <AvatarPage />,
       },
     ],
   },

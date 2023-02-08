@@ -33,6 +33,12 @@ const linksData = [
   { link: routes.AccordionPage, text: 'Accordion' },
   { link: routes.ImageListPage, text: 'Image List' },
   { link: routes.NavbarPage, text: 'Navbar' },
+  { link: routes.LinkPage, text: 'Link' },
+  { link: routes.BreadcrumbsPage, text: 'Breadcrumbs' },
+  { link: routes.DrawerPage, text: 'Drawer' },
+  { link: routes.SpeedDialPage, text: 'Speed Dial' },
+  { link: routes.BottomNavigationPage, text: 'Bottom Navigation' },
+  { link: routes.AvatarPage, text: 'Avatar' },
 ];
 
 const expandBreakpoint: Breakpoint = 'lg';
