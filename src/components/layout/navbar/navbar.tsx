@@ -1,6 +1,9 @@
 import React from 'react';
-import { AppBar, Toolbar } from '@mui/material';
+import {
+  AppBar, Toolbar, IconButton, Box, Breakpoint,
+} from '@mui/material';
 import routes from 'navigation/routes';
+import MenuIcon from '@mui/icons-material/Menu';
 import NavbarLink from './navbar-link';
 
 const linksData = [
@@ -20,14 +23,37 @@ const linksData = [
   { link: routes.ImageListPage, text: 'Image List' },
 ];
 
+const expandBreakpoint: Breakpoint = 'lg';
+
 const Navbar = () => (
   <AppBar position="sticky">
-    <Toolbar>
-      {
-        linksData.map(({ link, text }) => (
-          <NavbarLink key={link} to={link}>{text}</NavbarLink>
-        ))
-      }
+    <Toolbar
+      sx={{
+        justifyContent: { xs: 'flex-end', [expandBreakpoint]: 'flex-start' },
+      }}
+    >
+      <Box sx={{
+        display: { xs: 'none', [expandBreakpoint]: 'flex' },
+        alignSelf: 'stretch',
+      }}
+      >
+        {
+          linksData.map(({ link, text }) => (
+            <NavbarLink key={link} to={link}>{text}</NavbarLink>
+          ))
+        }
+      </Box>
+
+      <IconButton
+        sx={{
+          display: { xs: 'flex', [expandBreakpoint]: 'none' },
+        }}
+      >
+        <MenuIcon
+          sx={{ color: 'common.white', fontSize: 25 }}
+
+        />
+      </IconButton>
 
     </Toolbar>
   </AppBar>
