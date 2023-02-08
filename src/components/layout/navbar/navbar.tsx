@@ -8,10 +8,14 @@ import {
   Drawer,
   useMediaQuery,
   type Theme,
+  MenuList,
+  MenuItem,
 } from '@mui/material';
 import routes from 'navigation/routes';
 import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 import NavbarLink from './navbar-link';
+import NavbarMobileLink from './navbar-mobile-link';
 
 const linksData = [
   { link: routes.HomePage, text: 'Home' },
@@ -28,6 +32,7 @@ const linksData = [
   { link: routes.CardPage, text: 'Card' },
   { link: routes.AccordionPage, text: 'Accordion' },
   { link: routes.ImageListPage, text: 'Image List' },
+  { link: routes.NavbarPage, text: 'Navbar' },
 ];
 
 const expandBreakpoint: Breakpoint = 'lg';
@@ -35,7 +40,6 @@ const expandBreakpoint: Breakpoint = 'lg';
 const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const isExpanded = useMediaQuery((theme: Theme) => theme.breakpoints.up(expandBreakpoint));
-
   return (
     <AppBar position="sticky">
       <Toolbar
@@ -59,18 +63,28 @@ const Navbar = () => {
           sx={{
             display: { xs: 'flex', [expandBreakpoint]: 'none' },
           }}
-          onClick={() => setDrawerOpen(true)}
+          onClick={() => setDrawerOpen(!drawerOpen)}
         >
-          <MenuIcon
-            sx={{ color: 'common.white', fontSize: 25 }}
-          />
+          {drawerOpen
+            ? <CloseIcon sx={{ color: 'common.white', fontSize: 25 }} />
+            : <MenuIcon sx={{ color: 'common.white', fontSize: 25 }} />}
         </IconButton>
         <Drawer
+          anchor="top"
           open={drawerOpen && !isExpanded}
           onClose={() => setDrawerOpen(false)}
         >
-          <Box>
-            Cia super nuorodos
+          <Box sx={{ width: '100vw' }}>
+            <Toolbar />
+            <MenuList sx={{ p: 0 }}>
+              {
+                linksData.map(({ link, text }) => (
+                  <MenuItem key={link} onClick={() => setDrawerOpen(false)}>
+                    <NavbarMobileLink to={link}>{text}</NavbarMobileLink>
+                  </MenuItem>
+                ))
+              }
+            </MenuList>
           </Box>
         </Drawer>
       </Toolbar>

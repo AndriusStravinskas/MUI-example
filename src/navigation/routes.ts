@@ -13,6 +13,7 @@ const routes = {
   CardPage: '/card',
   AccordionPage: '/accordion',
   ImageListPage: '/imageList',
+  NavbarPage: '/navbar',
 };
 
 export default routes;

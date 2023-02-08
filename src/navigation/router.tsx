@@ -12,6 +12,7 @@ import BoxPage from 'pages/layout-page';
 import CardPage from 'pages/card-page';
 import AccordionPage from 'pages/accordion-page';
 import ImageListPage from 'pages/image-list-page';
+import NavbarPage from 'pages/navbar-page';
 import RadioButtonPage from '../pages/radio-button-page';
 import routes from './routes';
 import ButtonPage from '../pages/button-page';
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
       {
         path: routes.ImageListPage,
         element: <ImageListPage />,
+      },
+      {
+        path: routes.NavbarPage,
+        element: <NavbarPage />,
       },
     ],
   },

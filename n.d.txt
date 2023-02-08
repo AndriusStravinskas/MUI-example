@@ -1,4 +1,15 @@
+1. Pasidaryti visiems ekrano dydžiams pritaikytą Navbar
+  1. Sukurkite Ikonos mygtuką
+  2. Sukurkite lūžio tašką, nuo kurio pradedamos rodyti nuorodos, o iki jo Ikonos mygtukas [1.]
+  3. Sukurkite tuščią Drawer'į ir įgalinkite jo atidarymą spaudžiant Ikonos mygtuką [1.]
+  4. Aprašykite temą ir ją paviešinkite naudodami ThemeProvider
+  5. Panaudokite useMediaQuery hook'są kad atpažinti ekrano pakitimą
+  6. Papildykite Drawer'io [3.] atidarymo salygą įvertinant ekrano dydį [5.]
+  7. Sukurkite Drawer'io linkus
+  8. Įgalinkite ikonos pakitimą priklausomai nuo to ar atidarytas Drawer'is
+  9. Įgalinkite, kad visuomet matytūsi Header'is
+  10. Po Nuorodos pasirinkimo Drawer'į jį uždarykite
+
 https://www.youtube.com/watch?v=9L0QhB-6xBI&list=PLC3y8-rFHvwh-K9mDlrrcDywl7CeVL2rO&index=10&ab_channel=Codevolution
-Pažiūrėti 1-10 (įskaitant) video
+Pažiūrėti 3-28 (įskaitant) video
 Pateikiant pavyzdžius skirtinguose puslapiuose
-  TypographyPage
