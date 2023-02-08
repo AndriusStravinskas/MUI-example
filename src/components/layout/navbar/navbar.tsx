@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  AppBar, Toolbar, IconButton, Box, Breakpoint,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Box,
+  Breakpoint,
+  Drawer,
+  useMediaQuery,
+  type Theme,
 } from '@mui/material';
 import routes from 'navigation/routes';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -25,39 +32,51 @@ const linksData = [
 
 const expandBreakpoint: Breakpoint = 'lg';
 
-const Navbar = () => (
-  <AppBar position="sticky">
-    <Toolbar
-      sx={{
-        justifyContent: { xs: 'flex-end', [expandBreakpoint]: 'flex-start' },
-      }}
-    >
-      <Box sx={{
-        display: { xs: 'none', [expandBreakpoint]: 'flex' },
-        alignSelf: 'stretch',
-      }}
-      >
-        {
-          linksData.map(({ link, text }) => (
-            <NavbarLink key={link} to={link}>{text}</NavbarLink>
-          ))
-        }
-      </Box>
+const Navbar = () => {
+  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
+  const isExpanded = useMediaQuery((theme: Theme) => theme.breakpoints.up(expandBreakpoint));
 
-      <IconButton
+  return (
+    <AppBar position="sticky">
+      <Toolbar
         sx={{
-          display: { xs: 'flex', [expandBreakpoint]: 'none' },
+          justifyContent: { xs: 'flex-end', [expandBreakpoint]: 'flex-start' },
         }}
       >
-        <MenuIcon
-          sx={{ color: 'common.white', fontSize: 25 }}
+        <Box sx={{
+          display: { xs: 'none', [expandBreakpoint]: 'flex' },
+          alignSelf: 'stretch',
+        }}
+        >
+          {
+            linksData.map(({ link, text }) => (
+              <NavbarLink key={link} to={link}>{text}</NavbarLink>
+            ))
+          }
+        </Box>
 
-        />
-      </IconButton>
-
-    </Toolbar>
-  </AppBar>
-);
+        <IconButton
+          sx={{
+            display: { xs: 'flex', [expandBreakpoint]: 'none' },
+          }}
+          onClick={() => setDrawerOpen(true)}
+        >
+          <MenuIcon
+            sx={{ color: 'common.white', fontSize: 25 }}
+          />
+        </IconButton>
+        <Drawer
+          open={drawerOpen && !isExpanded}
+          onClose={() => setDrawerOpen(false)}
+        >
+          <Box>
+            Cia super nuorodos
+          </Box>
+        </Drawer>
+      </Toolbar>
+    </AppBar>
+  );
+};
 
 export default Navbar;
 
