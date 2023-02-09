@@ -20,6 +20,9 @@ const routes = {
   SpeedDialPage: '/speedDial',
   BottomNavigationPage: '/bottomNavigation',
   AvatarPage: '/avatar',
-};
+} as const;
+
+export type Routes = typeof routes;
+export type RouteLink = Routes[keyof Routes];
 
 export default routes;
