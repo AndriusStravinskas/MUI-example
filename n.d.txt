@@ -10,7 +10,7 @@
     * panaudoti komponentą tame komponente iš kurio jis buvo iškeltas (Navbar)
   1.4 Sukurkite NavbarMobileMenu komponente Mui bibliotekos Accordion
   1.5 Perduokite NavbarMobileMenu komponentui vienos nuorodų grupės duomenis per props ir atvaizduokite nuorodas
-  1.6 Iškeltite Accordion'o atvaizdavimą į atskirą komponentą
+  1.6 Iškelkite Accordion'o atvaizdavimą į atskirą komponentą
   1.7 Pakeiskite NavbarMobileMenu props'us, kad galėtumėte priimti masyvą nuorodų grupių
   1.8 Panaudokite [1.7] nuorodų grupes, kad atvaizduoti Accordion'us su kiekviena grupes
   1.9 Pažymėkite Accordion'o pavadinimą ryškesne spalva, jei jo viduje yra aktyvi nuoroda
