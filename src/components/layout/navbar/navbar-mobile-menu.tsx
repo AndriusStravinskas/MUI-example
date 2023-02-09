@@ -61,6 +61,7 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
             ))}
             {linksGroup.map((linkGroup) => (
               <NavbarMobileLinksAccordion
+                key={linkGroup.title}
                 title={linkGroup.title}
                 linksData={linkGroup.linksData}
                 closeDrawer={() => setDrawerOpen(false)}

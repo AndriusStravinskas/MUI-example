@@ -1,15 +1,26 @@
-1. Pasidaryti visiems ekrano dydžiams pritaikytą Navbar
-  1. Sukurkite Ikonos mygtuką
-  2. Sukurkite lūžio tašką, nuo kurio pradedamos rodyti nuorodos, o iki jo Ikonos mygtukas [1.]
-  3. Sukurkite tuščią Drawer'į ir įgalinkite jo atidarymą spaudžiant Ikonos mygtuką [1.]
-  4. Aprašykite temą ir ją paviešinkite naudodami ThemeProvider
-  5. Panaudokite useMediaQuery hook'są kad atpažinti ekrano pakitimą
-  6. Papildykite Drawer'io [3.] atidarymo salygą įvertinant ekrano dydį [5.]
-  7. Sukurkite Drawer'io linkus
-  8. Įgalinkite ikonos pakitimą priklausomai nuo to ar atidarytas Drawer'is
-  9. Įgalinkite, kad visuomet matytūsi Header'is
-  10. Po Nuorodos pasirinkimo Drawer'į jį uždarykite
+1. [0.1] - pamokos darbo atkartojimas PAŽINGSNIUI
+  1.1 Išskaidyti viso puslapio nuorodų duomenis į 2-5 grupes
+  1.2 Sukurti NavbarMobileMenu komponentą
+    * įsitraukti komponentus/bibliotekas
+    * aprašyti propsus
+    * panaudoti komponentą tame komponente iš kurio jis buvo iškeltas (Navbar)
+  1.3 Sukurti NavbarDesktopMenu komponentą
+    * įsitraukti komponentus/bibliotekas
+    * aprašyti propsus
+    * panaudoti komponentą tame komponente iš kurio jis buvo iškeltas (Navbar)
+  1.4 Sukurkite NavbarMobileMenu komponente Mui bibliotekos Accordion
+  1.5 Perduokite NavbarMobileMenu komponentui vienos nuorodų grupės duomenis per props ir atvaizduokite nuorodas
+  1.6 Iškeltite Accordion'o atvaizdavimą į atskirą komponentą
+  1.7 Pakeiskite NavbarMobileMenu props'us, kad galėtumėte priimti masyvą nuorodų grupių
+  1.8 Panaudokite [1.7] nuorodų grupes, kad atvaizduoti Accordion'us su kiekviena grupes
+  1.9 Pažymėkite Accordion'o pavadinimą ryškesne spalva, jei jo viduje yra aktyvi nuoroda
+  2.0 Įgalinkite pirminį Accordion'ą atidarymą, jei jo viduje yra aktyvi nuoroda
 
-https://www.youtube.com/watch?v=9L0QhB-6xBI&list=PLC3y8-rFHvwh-K9mDlrrcDywl7CeVL2rO&index=10&ab_channel=Codevolution
-Pažiūrėti 3-28 (įskaitant) video
-Pateikiant pavyzdžius skirtinguose puslapiuose
+2. [0.1] 
+  https://www.youtube.com/watch?v=9L0QhB-6xBI&list=PLC3y8-rFHvwh-K9mDlrrcDywl7CeVL2rO&index=10&ab_channel=Codevolution
+    Pažiūrėti 29-34 (įskaitant) video
+    Pateikiant pavyzdžius skirtinguose puslapiuose
+
+3. [0.1] Įgalinti logiką, jog Atidarius vieną Accordion'ą - užsidarytų kiti
+  * atlikti užduotį išlaikant pradinį aktyvios nuorodos Accordion'o atidarymą
+  
