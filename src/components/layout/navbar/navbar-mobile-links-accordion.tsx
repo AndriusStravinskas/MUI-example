@@ -29,7 +29,7 @@ const NavbarMobileLinksAccordion: React.FC<NavbarMobileLinksAccordionProps> = ({
   hasActiveLink,
   onChange,
 }) => (
-  <Accordion expanded={expanded} onChange={onChange}>
+  <Accordion expanded={expanded} onChange={onChange} disableGutters>
     <AccordionSummary expandIcon={(<ExpandMoreIcon />)}>
       <Typography color={hasActiveLink ? 'primary' : 'inherit'}>{title}</Typography>
     </AccordionSummary>

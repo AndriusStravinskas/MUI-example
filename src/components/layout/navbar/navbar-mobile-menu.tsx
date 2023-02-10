@@ -95,8 +95,8 @@ const NavbarMobileMenu: React.FC<NavbarMobileMenuProps> = ({
                 linksData={linkGroup.linksData}
                 closeMenu={closeMenu}
                 expanded={openedAccordionTitle === linkGroup.title}
-                hasActiveLink={activeGroupTitle === linkGroup.title}
                 onChange={handleAccordionAction(linkGroup.title)}
+                hasActiveLink={activeGroupTitle === linkGroup.title}
 
               />
             ))}

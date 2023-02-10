@@ -18,6 +18,12 @@ import BreadcrumbsPage from 'pages/breadcrumbs-page';
 import DrawerPage from 'pages/drawer-page';
 import SpeedDialPage from 'pages/speed-dial-page';
 import AvatarPage from 'pages/avatar-page';
+import BadgePage from 'pages/badge-page';
+import ListPage from 'pages/list-page';
+import ChipPage from 'pages/Chip-page';
+import TooltipPage from 'pages/tooltip-page';
+import TablePage from 'pages/Table-page';
+import AlertPage from 'pages/Alert-page';
 import RadioButtonPage from '../pages/radio-button-page';
 import routes from './routes';
 import ButtonPage from '../pages/button-page';
@@ -112,6 +118,30 @@ const router = createBrowserRouter([
       {
         path: routes.AvatarPage,
         element: <AvatarPage />,
+      },
+      {
+        path: routes.BadgePage,
+        element: <BadgePage />,
+      },
+      {
+        path: routes.ListPage,
+        element: <ListPage />,
+      },
+      {
+        path: routes.ChipPage,
+        element: <ChipPage />,
+      },
+      {
+        path: routes.TooltipPage,
+        element: <TooltipPage />,
+      },
+      {
+        path: routes.TablePage,
+        element: <TablePage />,
+      },
+      {
+        path: routes.AlertPage,
+        element: <AlertPage />,
       },
     ],
   },

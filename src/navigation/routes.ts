@@ -20,6 +20,12 @@ const routes = {
   SpeedDialPage: '/speedDial',
   BottomNavigationPage: '/bottomNavigation',
   AvatarPage: '/avatar',
+  BadgePage: '/badge',
+  ListPage: '/list',
+  ChipPage: '/chip',
+  TooltipPage: '/tooltip',
+  TablePage: '/table',
+  AlertPage: '/alert',
 } as const;
 
 export type Routes = typeof routes;

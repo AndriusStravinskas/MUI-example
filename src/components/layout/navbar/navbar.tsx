@@ -23,6 +23,10 @@ const presentanionalPagesData = [
   { link: routes.AvatarPage, text: 'Avatar' },
   { link: routes.LinkPage, text: 'Link' },
   { link: routes.BreadcrumbsPage, text: 'Breadcrumbs' },
+  { link: routes.BadgePage, text: 'Badge' },
+  { link: routes.ChipPage, text: 'Chip' },
+  { link: routes.TooltipPage, text: 'Tooltip' },
+  { link: routes.AlertPage, text: 'Alert' },
 ];
 
 const controlsPagesData = [
@@ -45,6 +49,8 @@ const wrapersPagesData = [
 const statefulPagesData = [
   { link: routes.BottomNavigationPage, text: 'Bottom Navigation' },
   { link: routes.AccordionPage, text: 'Accordion' },
+  { link: routes.ListPage, text: 'List' },
+  { link: routes.TablePage, text: 'Table' },
 ];
 
 const Navbar = () => (
