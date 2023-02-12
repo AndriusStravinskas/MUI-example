@@ -22,6 +22,10 @@ export const linksGroup = [
       { link: routes.TooltipPage, text: 'Tooltip' },
       { link: routes.AlertPage, text: 'Alert' },
       { link: routes.SnackbarPage, text: 'Snackbar' },
+      { link: routes.DialogPage, text: 'Dialog' },
+      { link: routes.ProgressPage, text: 'Progress' },
+      { link: routes.SekeletonPage, text: 'Sekeleton' },
+      { link: routes.LoadingButtonPage, text: 'Loading button' },
     ],
   },
   {

@@ -24,12 +24,16 @@ import ChipPage from 'pages/Chip-page';
 import TooltipPage from 'pages/tooltip-page';
 import TablePage from 'pages/Table-page';
 import AlertPage from 'pages/Alert-page';
+import ProgressPage from 'pages/progress-page';
+import SekeletonPage from 'pages/skeleton-page';
+import LoadingButtonPage from 'pages/loading-button-page';
 import RadioButtonPage from '../pages/radio-button-page';
 import routes from './routes';
 import ButtonPage from '../pages/button-page';
 import SelectPage from '../pages/select-page';
 import BottomNavigationPage from '../pages/bottom-navigation';
 import SnackbarPage from '../pages/snackbar-page';
+import DialogPage from '../pages/dialog-page';
 
 const router = createBrowserRouter([
   {
@@ -147,6 +151,22 @@ const router = createBrowserRouter([
       {
         path: routes.SnackbarPage,
         element: <SnackbarPage />,
+      },
+      {
+        path: routes.DialogPage,
+        element: <DialogPage />,
+      },
+      {
+        path: routes.ProgressPage,
+        element: <ProgressPage />,
+      },
+      {
+        path: routes.SekeletonPage,
+        element: <SekeletonPage />,
+      },
+      {
+        path: routes.LoadingButtonPage,
+        element: <LoadingButtonPage />,
       },
     ],
   },

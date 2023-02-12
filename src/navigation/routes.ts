@@ -27,6 +27,10 @@ const routes = {
   TablePage: '/table',
   AlertPage: '/alert',
   SnackbarPage: '/snackbar',
+  DialogPage: '/dialog',
+  ProgressPage: '/progress',
+  SekeletonPage: '/sekeleton',
+  LoadingButtonPage: '/loadingButton',
 } as const;
 
 export type Routes = typeof routes;
