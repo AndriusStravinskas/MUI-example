@@ -26,6 +26,7 @@ const routes = {
   TooltipPage: '/tooltip',
   TablePage: '/table',
   AlertPage: '/alert',
+  SnackbarPage: '/snackbar',
 } as const;
 
 export type Routes = typeof routes;

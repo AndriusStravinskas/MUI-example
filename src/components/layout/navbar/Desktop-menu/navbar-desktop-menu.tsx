@@ -2,8 +2,8 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import NavbarDesktopItem from './navbar-desktop-item';
-import { expandBreakpoint, linksData, linksGroup } from './links-data';
-import { getActiveLinksGroupTitle } from './helpers';
+import { expandBreakpoint, linksData, linksGroup } from '../links-data';
+import { getActiveLinksGroupTitle } from '../helpers';
 import NavbarDesktoplink from './navbar-desktop-link';
 import NavbarDesktopDropDown from './navbar-desktop-dropdown';
 

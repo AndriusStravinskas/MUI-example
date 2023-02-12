@@ -7,8 +7,9 @@ import {
 } from '@mui/material';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import LinkData from './link-data';
+
 import NavbarDesktopDropDownLink from './navbar-desktop-dropdown-link';
+import LinkData from '../link-data';
 
 type NavbarDesktopDropDownProps = {
   title: string,

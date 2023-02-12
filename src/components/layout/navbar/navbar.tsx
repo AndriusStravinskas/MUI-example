@@ -3,9 +3,9 @@ import {
   AppBar,
   Toolbar,
 } from '@mui/material';
-import NavbarMobileMenu from './navbar-mobile-menu';
-import NavbarDesktopMenu from './navbar-desktop-menu';
-import { expandBreakpoint, linksData } from './links-data';
+import NavbarMobileMenu from './mobile-menu/navbar-mobile-menu';
+import NavbarDesktopMenu from './Desktop-menu/navbar-desktop-menu';
+import { expandBreakpoint } from './links-data';
 
 const Navbar = () => (
   <AppBar position="sticky">
@@ -14,10 +14,7 @@ const Navbar = () => (
         justifyContent: { xs: 'flex-end', [expandBreakpoint]: 'flex-start' },
       }}
     >
-      <NavbarDesktopMenu
-        expandBreakpoint={expandBreakpoint}
-        linksData={linksData}
-      />
+      <NavbarDesktopMenu />
       <NavbarMobileMenu />
     </Toolbar>
   </AppBar>

@@ -14,8 +14,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useLocation } from 'react-router-dom';
 import NavbarMobileLink from './navbar-mobile-link';
 import NavbarMobileLinksAccordion from './navbar-mobile-links-accordion';
-import { getActiveLinksGroupTitle } from './helpers';
-import { expandBreakpoint, linksData, linksGroup } from './links-data';
+import { getActiveLinksGroupTitle } from '../helpers';
+import { expandBreakpoint, linksData, linksGroup } from '../links-data';
 
 const NavbarMobileMenu: React.FC = () => {
   const { pathname } = useLocation();

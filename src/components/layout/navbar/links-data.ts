@@ -21,6 +21,7 @@ export const linksGroup = [
       { link: routes.ChipPage, text: 'Chip' },
       { link: routes.TooltipPage, text: 'Tooltip' },
       { link: routes.AlertPage, text: 'Alert' },
+      { link: routes.SnackbarPage, text: 'Snackbar' },
     ],
   },
   {

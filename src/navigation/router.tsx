@@ -29,6 +29,7 @@ import routes from './routes';
 import ButtonPage from '../pages/button-page';
 import SelectPage from '../pages/select-page';
 import BottomNavigationPage from '../pages/bottom-navigation';
+import SnackbarPage from '../pages/snackbar-page';
 
 const router = createBrowserRouter([
   {
@@ -142,6 +143,10 @@ const router = createBrowserRouter([
       {
         path: routes.AlertPage,
         element: <AlertPage />,
+      },
+      {
+        path: routes.SnackbarPage,
+        element: <SnackbarPage />,
       },
     ],
   },
