@@ -26,6 +26,12 @@ export const linksGroup = [
       { link: routes.ProgressPage, text: 'Progress' },
       { link: routes.SekeletonPage, text: 'Sekeleton' },
       { link: routes.LoadingButtonPage, text: 'Loading button' },
+      { link: routes.PickerPage, text: 'Picker' },
+      { link: routes.DateRangePickerPage, text: 'Date range picker' },
+      { link: routes.TabsPage, text: 'Tabs' },
+      { link: routes.TimelinePage, text: 'Timeline' },
+      { link: routes.MasonryPage, text: 'Masonry' },
+      { link: routes.ResponsivenessPage, text: 'Responsiveness' },
     ],
   },
   {

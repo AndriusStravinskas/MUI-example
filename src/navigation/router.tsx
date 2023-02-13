@@ -27,6 +27,11 @@ import AlertPage from 'pages/Alert-page';
 import ProgressPage from 'pages/progress-page';
 import SekeletonPage from 'pages/skeleton-page';
 import LoadingButtonPage from 'pages/loading-button-page';
+import PickerPage from 'pages/picker-page';
+import TabsPage from 'pages/tabs-page';
+import TimelinePage from 'pages/timeline-page';
+import MasonryPage from 'pages/masonry-page';
+import ResponsivenessPage from 'pages/responsiveness-page';
 import RadioButtonPage from '../pages/radio-button-page';
 import routes from './routes';
 import ButtonPage from '../pages/button-page';
@@ -34,6 +39,7 @@ import SelectPage from '../pages/select-page';
 import BottomNavigationPage from '../pages/bottom-navigation';
 import SnackbarPage from '../pages/snackbar-page';
 import DialogPage from '../pages/dialog-page';
+import DateRangePickerPage from '../pages/date-range-picker-page';
 
 const router = createBrowserRouter([
   {
@@ -167,6 +173,30 @@ const router = createBrowserRouter([
       {
         path: routes.LoadingButtonPage,
         element: <LoadingButtonPage />,
+      },
+      {
+        path: routes.PickerPage,
+        element: <PickerPage />,
+      },
+      {
+        path: routes.DateRangePickerPage,
+        element: <DateRangePickerPage />,
+      },
+      {
+        path: routes.TabsPage,
+        element: <TabsPage />,
+      },
+      {
+        path: routes.TimelinePage,
+        element: <TimelinePage />,
+      },
+      {
+        path: routes.MasonryPage,
+        element: <MasonryPage />,
+      },
+      {
+        path: routes.ResponsivenessPage,
+        element: <ResponsivenessPage />,
       },
     ],
   },
